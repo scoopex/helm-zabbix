@@ -38,6 +38,9 @@ spec:
       hostNetwork: {{ .Values.zabbixAgent.hostNetwork }}
       dnsPolicy: ClusterFirstWithHostNet
       {{- end }}
+      {{- if .Values.zabbixAgent.daemonSetUpdateStrategy }}
+      daemonSetUpdateStrategy: {{ toYaml .Values.zabbixAgent.daemonSetUpdateStrategy | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ template "zabbix.serviceAccountName" . }}
       {{- with .Values.zabbixAgent.extraPodSpecs }}
       {{- toYaml . | nindent 6 }}
